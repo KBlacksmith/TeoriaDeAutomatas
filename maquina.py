@@ -26,13 +26,12 @@ class TuringMachine():
             return self.q2()
         return False
     def q2(self)->bool: 
-        if self.cadena[self.pos] in ['a', 'b', 'c']: 
+        if self.cadena[self.pos] != '#': 
             self.pos += 1
             return self.q2()
-        elif self.cadena[self.pos] == '#': 
+        else: 
             self.pos -= 1
             return self.q3()
-        return False
     def q3(self)->bool: 
         print('q3')
         print(self.cadena)
@@ -78,13 +77,12 @@ class TuringMachine():
     def q8(self)->bool: 
         print('q8')
         print(self.cadena)
-        if self.cadena[self.pos] in ['a', 'b']: 
+        if self.cadena[self.pos] != '#': 
             self.pos -= 1
             return self.q8()
-        elif self.cadena[self.pos] == '#': 
+        else: 
             self.pos += 1
             return self.q9()
-        return False
     def q9(self)->bool: 
         print('q9')
         print(self.cadena)
@@ -96,13 +94,12 @@ class TuringMachine():
     def q10(self)->bool: 
         print('q10')
         print(self.cadena)
-        if self.cadena[self.pos] in ['a', 'b']: 
+        if self.cadena[self.pos] != '#': 
             self.pos += 1
             return self.q10()
-        elif self.cadena[self.pos] == '#': 
+        else: 
             self.pos -= 1
             return self.q5()
-        return False
     
 if __name__=='__main__': 
     print('Este archivo no debe ser utilizado de manera directa')
