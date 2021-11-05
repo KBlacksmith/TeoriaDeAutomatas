@@ -1,4 +1,4 @@
-from tkinter import *
+from tkinter import Tk, Frame, Entry, Label, Button
 from maquina import TuringMachine
 def iniciar(frame: Frame, e: Entry, b:Button, maquina: TuringMachine): 
     x=20

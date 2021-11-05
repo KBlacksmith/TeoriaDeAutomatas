@@ -1,12 +1,9 @@
-from typing import Sequence
-
-
 class TuringMachine(): 
     def __init__(self) -> None:
         self.pos: int = ''
         self.cadena: str = ''
-        self.lenguaje: str = ''
-        self.reglas = ['L = { a^(n+1)(aba)^n c² | n>=0 }', 'Ejemplos válidos: ', 'acc', 'aaabacc', 'aaaabaabacc']
+        self.lenguaje: str = 'L = { a^(n+1)(aba)^n c² | n>=0 }'
+        self.reglas = ['Ejemplos válidos: ', 'n = 0 => acc', 'n = 1 => aaabacc', 'n = 2 => aaaabaabacc']
         self.font: tuple = ('bold', 15)
         pass
     def reemplazar(self, simbolo: str)->None: 
