@@ -3,9 +3,7 @@ from maquina import TuringMachine
 def iniciar(frame: Frame, e: Entry, b:Button, maquina: TuringMachine): 
     x=20
     y=20
-    Label(frame, text="Lenguaje: ", padx=x, pady=y, font=maquina.font).grid(row=0, column=0)
     Label(frame, text=maquina.lenguaje, padx=x, pady=y, font=maquina.font).grid(row=0, column=1)
-    Label(frame, text="Reglas: ", pady=5, font=maquina.font).grid(columnspan=2)
     for r in maquina.reglas: 
         Label(frame, text=r, pady=5, font=maquina.font).grid(columnspan=2)
     Label(frame, text="\nIngrese una cadena para validar: ", pady=y/2, font=maquina.font).grid(columnspan=2)
@@ -42,7 +40,7 @@ if __name__=="__main__":
     maquina = TuringMachine()
     root = Tk()
     root.title("PIA")
-    Label(root, text="Esta mquina de Turing acepta una cadena y determina si es válida o no para el siguiente lenguaje: ", font=maquina.font, pady=10).pack()
+    Label(root, text="Esta maquina de Turing acepta una cadena y determina si es válida o no para el siguiente lenguaje: ", font=maquina.font, pady=10).pack()
     frame = Frame(root)
     frame.pack()
     e=Entry(frame, font=maquina.font)

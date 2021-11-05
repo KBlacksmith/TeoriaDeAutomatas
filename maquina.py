@@ -1,122 +1,108 @@
+from typing import Sequence
+
+
 class TuringMachine(): 
     def __init__(self) -> None:
         self.pos: int = ''
         self.cadena: str = ''
         self.lenguaje: str = ''
-        self.reglas = ['{ a^(n+1)(aba)^n c² | n>=0 }', 'Ejemplos válidos: ', 'acc', 'aaabacc', 'aaaabaabacc']
+        self.reglas = ['L = { a^(n+1)(aba)^n c² | n>=0 }', 'Ejemplos válidos: ', 'acc', 'aaabacc', 'aaaabaabacc']
         self.font: tuple = ('bold', 15)
         pass
     def reemplazar(self, simbolo: str)->None: 
         self.cadena = self.cadena[:self.pos] + simbolo + self.cadena[self.pos+1:]
     def q0(self, cad: str)->bool:
-        print('q0')
         self.cadena = '#' + cad + '#'
-        self.pos = 1
+        print('q0')
         print(self.cadena)
-        v: bool
-        if self.cadena[self.pos] == 'a': 
-            v = self.q1()
-        else: 
-            v = False
-        if v: 
-            print('Cadena válida')
-        else: 
-            print('Cadena inválida')
-        print('-'*20)
-        return v
+        self.pos = 1
+        return self.q1()
     def q1(self)->bool: 
-        self.reemplazar('#')
         print('q1')
         print(self.cadena)
-        self.pos += 1
         if self.cadena[self.pos] == 'a': 
+            self.reemplazar('#')
+            self.pos += 1
             return self.q2()
-        elif self.cadena[self.pos] == 'c':
-            return self.q8()
         return False
-    def q2(self): 
-        self.reemplazar('#')
-        print('q2')
-        print(self.cadena)
-        self.pos += 1
-        while self.cadena[self.pos] != 'b':
-            if self.cadena[self.pos] != '#': 
-                self.pos += 1
-                continue
-            return False
-        else: 
+    def q2(self)->bool: 
+        if self.cadena[self.pos] in ['a', 'b', 'c']: 
+            self.pos += 1
+            return self.q2()
+        elif self.cadena[self.pos] == '#': 
             self.pos -= 1
-            if self.cadena[self.pos] == 'a': 
-                return self.q3()
-            return False
-    def q3(self): 
+            return self.q3()
+        return False
+    def q3(self)->bool: 
         print('q3')
-        self.reemplazar('X')
         print(self.cadena)
-        self.pos += 1
-        self.reemplazar('Y')
-        print(self.cadena)
-        self.pos += 1
-        if self.cadena[self.pos] == 'a': 
+        if self.cadena[self.pos] == 'c': 
+            self.reemplazar('#')
+            self.pos -=1
             return self.q4()
         return False
-    def q4(self): 
-        self.reemplazar('X')
+    def q4(self)->bool: 
         print('q4')
         print(self.cadena)
-        self.pos -= 1
-        while self.cadena[self.pos] != '#': 
+        if self.cadena[self.pos] == 'c': 
+            self.reemplazar('#')
             self.pos -= 1
-        else: 
-            self.pos += 1
-            if self.cadena[self.pos] == 'a': 
-                return self.q2()
-            elif self.cadena[self.pos] == 'X': 
-                return self.q5()
+            return self.q5()
         return False
-    def q5(self): 
-        self.reemplazar('#')
+    def q5(self)->bool: 
         print('q5')
         print(self.cadena)
-        self.pos += 1
-        if self.cadena[self.pos] == 'Y': 
+        if self.cadena[self.pos] == '#': 
+            return True
+        elif self.cadena[self.pos] == 'a':
+            self.reemplazar('#')
+            self.pos -= 1 
             return self.q6()
         return False
-    def q6(self): 
-        self.reemplazar('#')
+    def q6(self)->bool: 
         print('q6')
         print(self.cadena)
-        self.pos += 1
-        if self.cadena[self.pos] == 'X': 
+        if self.cadena[self.pos] == 'b': 
+            self.reemplazar('#')
+            self.pos -= 1
             return self.q7()
         return False
-
-    def q7(self): 
-        self.reemplazar('#')
+    def q7(self)->bool: 
         print('q7')
         print(self.cadena)
-        self.pos += 1
-        if self.cadena[self.pos] == 'X': 
-            return self.q5()
-        elif self.cadena[self.pos] == 'c': 
+        if self.cadena[self.pos] == 'a': 
+            self.reemplazar('#')
+            self.pos -= 1
             return self.q8()
         return False
-
-    def q8(self): 
-        self.reemplazar('#')
+    def q8(self)->bool: 
         print('q8')
         print(self.cadena)
-        self.pos += 1
-        if self.cadena[self.pos] == 'c': 
+        if self.cadena[self.pos] in ['a', 'b']: 
+            self.pos -= 1
+            return self.q8()
+        elif self.cadena[self.pos] == '#': 
+            self.pos += 1
             return self.q9()
         return False
-
-    def q9(self): 
-        self.reemplazar('#')
+    def q9(self)->bool: 
         print('q9')
         print(self.cadena)
-        self.pos += 1
-        return self.cadena[self.pos] == '#'
+        if self.cadena[self.pos] == 'a': 
+            self.reemplazar('#')
+            self.pos += 1
+            return self.q10()
+        return False
+    def q10(self)->bool: 
+        print('q10')
+        print(self.cadena)
+        if self.cadena[self.pos] in ['a', 'b']: 
+            self.pos += 1
+            return self.q10()
+        elif self.cadena[self.pos] == '#': 
+            self.pos -= 1
+            return self.q5()
+        return False
     
 if __name__=='__main__': 
     print('Este archivo no debe ser utilizado de manera directa')
